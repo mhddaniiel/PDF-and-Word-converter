@@ -1,9 +1,11 @@
 from tkinter import *
 from PIL import Image
+from docx2pdf import convert
 from tkinter import filedialog
 
 def openWordfile():
-    pass
+    file = filedialog.askopenfile(filetypes=[('word', '*.docx')])
+    convert(file.name)
 
 files = {}
 def openImagefile():
@@ -20,7 +22,7 @@ def openImagefile():
     img_list[0].save(f'{save_file_name}.pdf', save_all = True, append_images = img_list[1:])
 
 window = Tk()
-window.title("Words & Images to PDF Converter (Student Edition)")
+window.title("Word & Image convert to PDF (Student Edition)")
 window.geometry('450x200')
 
 Word_butt=Button(window, text="Select Word Files", width=30, command=openWordfile)
