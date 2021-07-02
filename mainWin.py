@@ -6,6 +6,21 @@ def openWordfile():
 def openImagefile():
     pass
 
+files = {}
+def openImagefile():
+    global files
+    files['filename']=filedialog.askopenfilenames(filetypes=[('JPG','*.jpg'),('PNG','*.png'),('JPEG','*.jpeg')])
+
+    img_list = []
+
+    for file in files['filename']:
+        img_list.append(Image.open(file).convert('RGB'))
+        img_list.append
+        
+    save_file_name = filedialog.asksaveasfilename(filetypes = [('PDF','*.pdf')])
+    img_list[0].save(f'{save_file_name}.pdf', save_all = True, append_images = img_list[1:])
+
+
 window = Tk()
 window.title("Words & Images to PDF Converter (Student Edition)")
 window.geometry('450x200')
