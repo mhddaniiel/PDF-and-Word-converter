@@ -1,9 +1,8 @@
 from tkinter import *
+from PIL import Image
+from tkinter import filedialog
 
 def openWordfile():
-    pass
-
-def openImagefile():
     pass
 
 files = {}
@@ -19,8 +18,6 @@ def openImagefile():
         
     save_file_name = filedialog.asksaveasfilename(filetypes = [('PDF','*.pdf')])
     img_list[0].save(f'{save_file_name}.pdf', save_all = True, append_images = img_list[1:])
-
-
 
 window = Tk()
 window.title("Words & Images to PDF Converter (Student Edition)")
