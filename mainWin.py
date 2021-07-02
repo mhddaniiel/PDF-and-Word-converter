@@ -21,6 +21,7 @@ def openImagefile():
     img_list[0].save(f'{save_file_name}.pdf', save_all = True, append_images = img_list[1:])
 
 
+
 window = Tk()
 window.title("Words & Images to PDF Converter (Student Edition)")
 window.geometry('450x200')
