@@ -42,6 +42,13 @@ back_img = PhotoImage(file='canvas.png')
 img_back = Label(window, image=back_img)
 img_back.place(relwidth=1, relheight=1)
 
+menuBar = Menu(window)
+window.config(menu=menuBar)
+
+checkMenu = Menu(menuBar)
+menuBar.add_cascade(label='Menu', menu=checkMenu)
+checkMenu.add_command(label='Quit', command=window.destroy)
+
 butt_word = PhotoImage(file='wordButton.png')
 Word_butt=Button(window, image=butt_word, width=100, height=50, borderwidth=0, command=openWordfile)
 Word_butt.place(relx=0.48,rely=0.86) 
