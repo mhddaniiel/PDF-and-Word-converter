@@ -32,7 +32,7 @@ def win2():
 
         messagebox.showinfo(title='Announcement', message='The PDF file is stored at a place of your choice')
 
-    window=Toplevel(main)
+    window=Toplevel(Menu)
     window.title("Words & Images to PDF Converter (Student Edition)")
     window.geometry('500x500+520+100')
     window.iconbitmap(r'icon.ico')
@@ -58,19 +58,97 @@ def win2():
     Img_butt.place(relx=0.7,rely=0.86)   
 
 def win3():
-    pass
+
+#3rdWindow
+    def finf2():
+        global back_img2,bd_img,b1_img,b2_img
+    
+    def openFile():
+        global out
+        file = sep.filedialog.askopenfilename(filetypes=[('All Files', '*.*')])
+        sep.os.system('"%s"' % file)
+        
+        data = sep.os.path.split(file)
+        out=data[1]
+        print(out)
+
+    def buttDel():
+        entry.delete(0,END)
+
+    def ins():
+        
+        conn = sep.sqlite3.connect('data-insert-here.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO history(File,Mark) VALUES(?,?)",(entry.get(),out,))
+        conn.commit()
+        conn.close()
+
+    def show():
+        win4 = Toplevel(newWin)
+        win4.title('DATABASE')
+        win4.geometry('228x352+276+268')
+        win4.iconbitmap(r'icon.ico')
+
+        menuBar1 = Menu(win4)
+        win4.config(menu=menuBar1)
+
+        checkMenu1 = Menu(menuBar1)
+        menuBar1.add_cascade(label='Maximize to see full', menu=checkMenu1)
+
+        conn = sep.sqlite3.connect('data-insert-here.db')
+        c = conn.cursor()
+        c.execute("SELECT * FROM history")
+        conn.commit()
+
+        records = c.fetchall()
+
+        print_records1 = ''
+        print_records2 = ''
+        print_records3 = ''
+        for r in records:
+            #print_records1 += f'{str(r[0])}\t\t\t{str(r[2])}\t\t\t{str(r[1])}/100%\n'
+            print_records1 += f'{str(r[0])}\n'
+            print_records2 += f'{str(r[1])}/100%\n'
+            print_records3 += f'{str(r[2])}\n'
+
+        frame1 = LabelFrame(win4, text='Code', font=('Arial',10), bg='blue', fg='white')
+        frame1.grid(row=0, column=0)
+        lab1 = Label(frame1, text=print_records1)
+        lab1.pack()
+
+        frame2 = LabelFrame(win4, text='Mark', font=('Arial',10), bg='red', fg='white')
+        frame2.grid(row=0, column=1)
+        lab2 = Label(frame2, text=print_records2)
+        lab2.pack()
+
+        frame3 = LabelFrame(win4, text='File Name', font=('Arial',10), bg='green', fg='white')
+        frame3.grid(row=0, column=2)
+        lab3 = Label(frame3, text=print_records3)
+        lab3.pack()
+        
+        conn.close()
+
+    def delete():
+        conn = sep.sqlite3.connect('data-insert-here.db')
+        c = conn.cursor()
+        c.execute("DELETE from history")
+        conn.commit()
+        
+        conn.close()
 
 #mainWindow
-main = Tk()
-main.resizable(0,0)
-main.geometry('300x100')
-main.title('Option Window')
-main.iconbitmap('icon.ico')
+    main = Tk()
+    main.resizable(0,0)
+    main.geometry('300x100')
+    main.title('Option Window')
+    main.iconbitmap('icon.ico')
 
-mainButt1 = Button(main, text='Enter Word & Image to PDF Window', command=win2)
-mainButt1.pack()
+    mainButt1 = Button(main, text='Enter Word & Image to PDF Window', command=win2)
+    mainButt1.pack()
 
-mainButt2 = Button(main, text='Enter Student Assignment Recorder Window', command=win3)
-mainButt2.pack()
+    mainButt2 = Button(main, text='Enter Student Assignment Recorder Window', command=win3)
+    mainButt2.pack()
 
-main.mainloop()
+
+
+    main.mainloop()
