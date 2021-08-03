@@ -150,5 +150,26 @@ def win3():
     mainButt2.pack()
 
 
+#newWinInitialize
+    newWin = Toplevel(win)
+    newWin.title('Student Assignment Recorder (Teacher Edition)')
+    newWin.geometry('500x500+520+120')
+    newWin.iconbitmap(r'icon.ico')
+    newWin.resizable(0,0)
 
-    main.mainloop()
+    back_img2 = PhotoImage(file='canvas2.png')
+    img_back = Label(newWin, image=back_img2)
+    img_back.place(relwidth=1, relheight=1)
+  
+    
+#newWinMenu
+    menuBar = Menu(newWin)
+    newWin.config(menu=menuBar)
+
+    checkMenu = Menu(menuBar)
+    menuBar.add_cascade(label='Database', menu=checkMenu)
+    checkMenu.add_command(label='Delete Database', command=delete)
+    checkMenu.add_command(label='Show Database', command=show)
+    checkMenu.add_command(label='Quit', command=newWin.destroy)
+
+  main.mainloop()
